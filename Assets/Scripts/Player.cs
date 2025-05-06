@@ -9,9 +9,9 @@ namespace Golf
     {
         public Transform stick;
         private bool m_isDown = false;
-        public float range = 50f;
-        public float speed = 1000f;
-        public float power = 20f;
+        public float range = 40f;
+        public float speed = 500f;
+        public float power = 10f;
         public Transform helper;
 
         private Vector3 m_lastPosition;
@@ -19,7 +19,7 @@ namespace Golf
         {
             m_lastPosition = helper.position;
 
-            m_isDown = Input.GetMouseButton(0);
+            //m_isDown = Input.GetMouseButton(0);
 
             Quaternion rot = stick.localRotation;
 
@@ -38,7 +38,6 @@ namespace Golf
         {
             if (collider.TryGetComponent<Rigidbody>(out Rigidbody body))
             {
-                //var dir = m_isDown ? stick.right : -stick.right;
                 var dir = (helper.position - m_lastPosition).normalized;
                 body.AddForce(dir * power, ForceMode.Impulse);
                 if (collider.TryGetComponent(out Stone stone) && !stone.isAffect)
@@ -48,7 +47,6 @@ namespace Golf
                 }
             }
 
-            //Debug.Log(collider, this);
         }
     }
 
